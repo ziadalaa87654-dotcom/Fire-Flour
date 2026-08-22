@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Menu — Fire & Flour</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="site-header solid">
+      <div class="container nav-wrap">
+        <a class="logo" href="index.html">Fire & Flour<span>•</span></a
+        ><button class="nav-toggle">☰</button>
+        <nav class="nav">
+          <a href="index.html">Home</a
+          ><a class="active" href="menu.html">Menu</a
+          ><a href="about.html">About</a
+          ><a class="nav-cta" href="reservation.html">Book a table</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <p class="eyebrow dark">MANGIA BENE</p>
+          <h1>Our <em>menu.</em></h1>
+          <p>
+            Simple ingredients. Big flavour. Everything made fresh in our
+            kitchen.
+          </p>
+        </div>
+      </section>
+      <section class="menu-section section">
+        <div class="container">
+          <div class="filters-bar">
+            <div class="filters">
+              <button class="filter active" data-filter="all">All</button>
+              <button class="filter" data-filter="pizza">Pizza</button>
+              <button class="filter" data-filter="pasta">Pasta</button>
+              <button class="filter" data-filter="salad">Salads</button>
+              <button class="filter" data-filter="dessert">Dessert</button>
+            </div>
+            <div class="menu-search-wrap">
+              <input
+                type="text"
+                id="menuSearch"
+                class="menu-search-input"
+                placeholder="Search menu..."
+                aria-label="Search menu items"
+              />
+              <button
+                type="button"
+                id="clearMenuSearch"
+                class="menu-search-clear"
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+          <div class="menu-list">
+            <article class="menu-item" data-category="pizza">
+              <div>
+                <span class="menu-number">01</span>
+                <h3>Margherita</h3>
+                <p>San Marzano tomato, fior di latte, basil, olive oil</p>
+              </div>
+              <strong>€14</strong>
+            </article>
+            <article class="menu-item" data-category="pizza">
+              <div>
+                <span class="menu-number">02</span>
+                <h3>Diavola</h3>
+                <p>Tomato, mozzarella, spicy salami, chilli, basil</p>
+              </div>
+              <strong>€17</strong>
+            </article>
+            <article class="menu-item" data-category="pizza">
+              <div>
+                <span class="menu-number">03</span>
+                <h3>Prosciutto e Burrata</h3>
+                <p>Tomato, mozzarella, prosciutto, creamy burrata, rocket</p>
+              </div>
+              <strong>€19</strong>
+            </article>
+            <article class="menu-item" data-category="pizza">
+              <div>
+                <span class="menu-number">04</span>
+                <h3>Funghi</h3>
+                <p>Mozzarella, wild mushrooms, thyme, parmesan</p>
+              </div>
+              <strong>€16</strong>
+            </article>
+            <article class="menu-item" data-category="pasta">
+              <div>
+                <span class="menu-number">05</span>
+                <h3>Truffle Tagliatelle</h3>
+                <p>Fresh pasta, parmesan cream, black truffle</p>
+              </div>
+              <strong>€19</strong>
+            </article>
+            <article class="menu-item" data-category="pasta">
+              <div>
+                <span class="menu-number">06</span>
+                <h3>Arrabbiata</h3>
+                <p>Rigatoni, tomato, garlic, chilli, parsley</p>
+              </div>
+              <strong>€15</strong>
+            </article>
+            <article class="menu-item" data-category="salad">
+              <div>
+                <span class="menu-number">07</span>
+                <h3>Italian Garden</h3>
+                <p>Rocket, cherry tomato, burrata, pesto, balsamic</p>
+              </div>
+              <strong>€12</strong>
+            </article>
+            <article class="menu-item" data-category="salad">
+              <div>
+                <span class="menu-number">08</span>
+                <h3>Caprese</h3>
+                <p>Heirloom tomatoes, mozzarella, basil, olive oil</p>
+              </div>
+              <strong>€13</strong>
+            </article>
+            <article class="menu-item" data-category="dessert">
+              <div>
+                <span class="menu-number">09</span>
+                <h3>Tiramisu</h3>
+                <p>Mascarpone, espresso, cocoa, ladyfingers</p>
+              </div>
+              <strong>€9</strong>
+            </article>
+            <article class="menu-item" data-category="dessert">
+              <div>
+                <span class="menu-number">10</span>
+                <h3>Panna Cotta</h3>
+                <p>Vanilla cream, seasonal berries, citrus</p>
+              </div>
+              <strong>€8</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="dark-section cta-strip">
+        <div class="container split-cta">
+          <h2>Hungry yet?</h2>
+          <a class="btn btn-outline" href="reservation.html">Book a table ↗</a>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="logo light-logo" href="index.html"
+            >FIRE & FLOUR<span>•</span></a
+          >
+          <p>Italian food. Modern spirit.<br />Made fresh, made happy.</p>
+        </div>
+        <div>
+          <p class="footer-label">VISIT</p>
+          <p>126 St Maadi<br />Cairo, Egypt</p>
+        </div>
+        <div>
+          <p class="footer-label">OPEN</p>
+          <p>Mon–Thu 11:00–23:00<br />Fri–Sun 11:00–00:00</p>
+        </div>
+        <div>
+          <p class="footer-label">FOLLOW</p>
+          <p><a href="#">Instagram</a><br /><a href="#">Facebook</a></p>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© 2026 Fire & Flour Pizzeria</span
+        ><span>Made for good times.</span>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
