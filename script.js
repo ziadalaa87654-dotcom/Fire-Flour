@@ -1,14 +1,5 @@
-/**
- * Fire & Flour — Main JavaScript
- * Handles navigation, menu search/filtering, dish details modal,
- * reservation forms & validation, toast notifications,
- * scroll reveal animations, stat counters, and back-to-top button.
- */
-
 document.addEventListener("DOMContentLoaded", () => {
-  /* ==========================================================================
-     1. Toast Notification System
-     ========================================================================== */
+
   function showToast(message, type = "info", duration = 3500) {
     let container = document.querySelector(".toast-container");
     if (!container) {
@@ -22,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.textContent = message;
     container.appendChild(toast);
 
-    // Trigger transition animation
+
     requestAnimationFrame(() => {
       toast.classList.add("toast-show");
     });
@@ -36,15 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
       toast.addEventListener("transitionend", onEnd, { once: true });
-      setTimeout(onEnd, 400); // Fallback if transitionend doesn't trigger
+      setTimeout(onEnd, 400); 
     };
 
     setTimeout(removeToast, duration);
   }
 
-  /* ==========================================================================
-     2. Modal Window System
-     ========================================================================== */
   function showModal(title, bodyHtml) {
     let backdrop = document.querySelector(".modal-backdrop");
     if (!backdrop) {
@@ -93,9 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keydown", onKeydown);
   }
 
-  /* ==========================================================================
-     3. Header Scroll Effect & Active Page Link
-     ========================================================================== */
   const header = document.querySelector(".site-header");
   if (header) {
     const handleHeaderScroll = () => {
@@ -109,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
     handleHeaderScroll();
   }
 
-  // Active link highlighting based on current page
   const currentPath = window.location.pathname.split("/").pop() || "index.html";
   const navLinks = document.querySelectorAll(".nav a");
   navLinks.forEach((link) => {
@@ -128,9 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* ==========================================================================
-     4. Mobile Navigation & Backdrop
-     ========================================================================== */
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".nav");
   let navBackdrop = document.querySelector(".nav-backdrop");
@@ -177,9 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ==========================================================================
-     5. Hero Scroll Button
-     ========================================================================== */
   const heroScrollBtn = document.querySelector(".hero-scroll");
   if (heroScrollBtn) {
     heroScrollBtn.addEventListener("click", () => {
@@ -192,9 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ==========================================================================
-     6. Menu Filter, Live Search & Dish Details Modal
-     ========================================================================== */
   const filters = document.querySelectorAll(".filter");
   const menuItems = document.querySelectorAll(".menu-item");
   const menuSearchInput = document.getElementById("menuSearch");
@@ -205,7 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentCategory = "all";
     let searchQuery = "";
 
-    // Calculate category counts and render badges
     const categoryCounts = { all: menuItems.length };
     menuItems.forEach((item) => {
       const cat = item.dataset.category;
@@ -224,7 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Create empty results placeholder element
     let noResultsEl = document.querySelector(".no-menu-results");
     if (!noResultsEl && menuListContainer) {
       noResultsEl = document.createElement("div");
@@ -292,7 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Interactive Dish Detail Popup Modal for Menu Items & Home Food Cards
   const foodCards = document.querySelectorAll(".food-card, .menu-item");
   foodCards.forEach((card) => {
     card.style.cursor = "pointer";
@@ -327,15 +299,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ==========================================================================
-     7. Reservation Form Validation & Modal Feedback (reservation.html)
-     ========================================================================== */
   const dateInput = document.querySelector('input[type="date"]');
   if (dateInput) {
     const todayStr = new Date().toISOString().split("T")[0];
     dateInput.min = todayStr;
 
-    // Max reservation 90 days out
     const maxDate = new Date();
     maxDate.setDate(maxDate.getDate() + 90);
     dateInput.max = maxDate.toISOString().split("T")[0];
@@ -343,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const reservationForm = document.getElementById("reservationForm");
   if (reservationForm) {
-    // Clear invalid styling on input
+
     const inputs = reservationForm.querySelectorAll("input, select, textarea");
     inputs.forEach((input) => {
       input.addEventListener("input", () => {
@@ -364,10 +332,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let valid = true;
 
-      // Reset invalid status
+
       inputs.forEach((input) => input.classList.remove("invalid"));
 
-      // Required checks
+
       if (!name) {
         reservationForm.querySelector('[name="name"]')?.classList.add("invalid");
         valid = false;
@@ -394,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Email format check
+
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         reservationForm.querySelector('[name="email"]')?.classList.add("invalid");
@@ -402,7 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Format date for display
+     
       const dateParts = date.split("-");
       const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
       const formattedDate = dateObj.toLocaleDateString("en-US", {
@@ -435,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // General forms handling (contact / footer forms)
+
   document.querySelectorAll("form:not(#reservationForm)").forEach((form) => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -448,9 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ==========================================================================
-     8. Reveal-on-Scroll Animations (IntersectionObserver)
-     ========================================================================== */
+ 
   const revealElements = document.querySelectorAll(
     ".food-card, .menu-item, .story-grid > div, .intro-grid > div, .review-grid > blockquote, .gallery-photo"
   );
@@ -473,9 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach((el) => observer.observe(el));
   }
 
-  /* ==========================================================================
-     9. Stat Number Counter Animation (about.html)
-     ========================================================================== */
+  
   const statElements = document.querySelectorAll(".number-grid strong");
   if ("IntersectionObserver" in window && statElements.length > 0) {
     const animateStat = (el) => {
@@ -521,9 +485,7 @@ document.addEventListener("DOMContentLoaded", () => {
     statElements.forEach((el) => statObserver.observe(el));
   }
 
-  /* ==========================================================================
-     10. Back to Top Button
-     ========================================================================== */
+
   const backToTopBtn = document.createElement("button");
   backToTopBtn.id = "backToTop";
   backToTopBtn.setAttribute("aria-label", "Scroll back to top");
