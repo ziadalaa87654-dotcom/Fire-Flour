@@ -825,11 +825,6 @@ select:focus {
   }
 }
 
-/* ==========================================================================
-   Interactive JS Components & Animation Enhancements
-   ========================================================================== */
-
-/* Header Scroll Transition */
 .site-header {
   transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
 }
@@ -863,7 +858,6 @@ select:focus {
   visibility: visible;
 }
 
-/* Hero Scroll Button Interactivity */
 .hero-scroll {
   cursor: pointer;
   user-select: none;
@@ -875,7 +869,6 @@ select:focus {
   opacity: 0.85;
 }
 
-/* Menu Filter Bar & Search Box */
 .filters-bar {
   display: flex;
   flex-wrap: wrap;
@@ -932,7 +925,6 @@ select:focus {
   display: block;
 }
 
-/* Menu Filter Counter Badge */
 .filter-badge {
   font-size: 11px;
   background: var(--line);
@@ -955,7 +947,6 @@ select:focus {
   font-size: 16px;
 }
 
-/* Reveal-on-Scroll Animations */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -967,7 +958,6 @@ select:focus {
   transform: translateY(0);
 }
 
-/* Back to Top Button */
 #backToTop {
   position: fixed;
   bottom: 30px;
@@ -1002,7 +992,7 @@ select:focus {
   transform: scale(1.1);
 }
 
-/* Modal Popup System */
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -1079,7 +1069,6 @@ select:focus {
   font-size: 13px;
 }
 
-/* Toast Notifications */
 .toast-container {
   position: fixed;
   bottom: 24px;
@@ -1118,7 +1107,6 @@ select:focus {
   border-left-color: #2e7d32;
 }
 
-/* Dish Modal & Interactive Component Enhancements */
 .dish-modal-header {
   display: flex;
   justify-content: space-between;
@@ -1142,7 +1130,6 @@ select:focus {
   color: var(--ink);
 }
 
-/* Form Invalid Validation Highlight */
 input.invalid,
 select.invalid,
 textarea.invalid {
