@@ -840,9 +840,12 @@ select:focus {
   }
 }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 .site-header {
   transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
 }
@@ -876,7 +879,10 @@ select:focus {
   visibility: visible;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 .hero-scroll {
   cursor: pointer;
   user-select: none;
@@ -888,7 +894,10 @@ select:focus {
   opacity: 0.85;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 .filters-bar {
   display: flex;
   flex-wrap: wrap;
@@ -945,7 +954,10 @@ select:focus {
   display: block;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 .filter-badge {
   font-size: 11px;
   background: var(--line);
@@ -968,7 +980,10 @@ select:focus {
   font-size: 16px;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -980,7 +995,10 @@ select:focus {
   transform: translateY(0);
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 #backToTop {
   position: fixed;
   bottom: 30px;
@@ -1092,7 +1110,10 @@ select:focus {
   font-size: 13px;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 .toast-container {
   position: fixed;
   bottom: 24px;
@@ -1131,7 +1152,10 @@ select:focus {
   border-left-color: #2e7d32;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 .dish-modal-header {
   display: flex;
   justify-content: space-between;
@@ -1155,7 +1179,10 @@ select:focus {
   color: var(--ink);
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f254df9b154396dfea6dccbcc5ad0bd83174fe05
 input.invalid,
 select.invalid,
 textarea.invalid {
