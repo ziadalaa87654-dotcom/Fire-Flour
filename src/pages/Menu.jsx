@@ -1,19 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-
-const menuItemsData = [
-  { id: '01', category: 'pizza', name: 'Margherita', desc: 'San Marzano tomato, fior di latte, basil, olive oil', price: '€14' },
-  { id: '02', category: 'pizza', name: 'Diavola', desc: 'Tomato, mozzarella, spicy salami, chilli, basil', price: '€17' },
-  { id: '03', category: 'pizza', name: 'Prosciutto e Burrata', desc: 'Tomato, mozzarella, prosciutto, creamy burrata, rocket', price: '€19' },
-  { id: '04', category: 'pizza', name: 'Funghi', desc: 'Mozzarella, wild mushrooms, thyme, parmesan', price: '€16' },
-  { id: '05', category: 'pasta', name: 'Truffle Tagliatelle', desc: 'Fresh pasta, parmesan cream, black truffle', price: '€19' },
-  { id: '06', category: 'pasta', name: 'Arrabbiata', desc: 'Rigatoni, tomato, garlic, chilli, parsley', price: '€15' },
-  { id: '07', category: 'salad', name: 'Italian Garden', desc: 'Rocket, cherry tomato, burrata, pesto, balsamic', price: '€12' },
-  { id: '08', category: 'salad', name: 'Caprese', desc: 'Heirloom tomatoes, mozzarella, basil, olive oil', price: '€13' },
-  { id: '09', category: 'dessert', name: 'Tiramisu', desc: 'Mascarpone, espresso, cocoa, ladyfingers', price: '€9' },
-  { id: '10', category: 'dessert', name: 'Panna Cotta', desc: 'Vanilla cream, seasonal berries, citrus', price: '€8' },
-];
+import { useCart } from '../context/CartContext';
+import productService from '../services/productService';
 
 const categories = [
   { key: 'all', label: 'All' },
@@ -24,48 +13,88 @@ const categories = [
 ];
 
 export default function Menu() {
-  const { showModal } = useApp();
+  const { showModal, showToast } = useApp();
+  const { addToCart } = useCart();
+  
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  useEffect(() => {
+    async function loadMenu() {
+      try {
+        const data = await productService.getProducts();
+        setItems(data);
+      } catch (err) {
+        showToast('Failed to load menu items', 'danger');
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadMenu();
+  }, [showToast]);
+
   const categoryCounts = useMemo(() => {
-    const counts = { all: menuItemsData.length };
-    menuItemsData.forEach((item) => {
+    const counts = { all: items.length };
+    items.forEach((item) => {
       counts[item.category] = (counts[item.category] || 0) + 1;
     });
     return counts;
-  }, []);
+  }, [items]);
 
   const filteredItems = useMemo(() => {
-    return menuItemsData.filter((item) => {
+    return items.filter((item) => {
       const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
       const text = `${item.name} ${item.desc} ${item.price}`.toLowerCase();
       const matchesSearch = !searchQuery || text.includes(searchQuery.toLowerCase().trim());
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [items, activeCategory, searchQuery]);
+
+  const handleAddToCart = (e, item) => {
+    e.stopPropagation();
+    addToCart(item, 1);
+    showToast(`Added "${item.name}" to cart! 🛒`, 'success', 2500);
+  };
 
   const handleDishClick = (item) => {
     const content = (
       <div className="dish-modal-content">
-        <div className="dish-modal-header">
-          <span className="dish-modal-badge">{item.category.toUpperCase()}</span>
-          <span className="dish-modal-price">{item.price}</span>
+        {item.image && (
+          <img 
+            src={item.image} 
+            alt={item.name} 
+            style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: '8px', marginBottom: '16px' }}
+          />
+        )}
+        <div className="dish-modal-header d-flex justify-content-between align-items-center">
+          <span className="dish-modal-badge badge bg-danger">{String(item.category).toUpperCase()}</span>
+          <span className="dish-modal-price text-danger fw-bold fs-5">€{Number(item.price).toFixed(2)}</span>
         </div>
         <p className="lead" style={{ fontSize: '16px', margin: '16px 0' }}>
           {item.desc}
         </p>
-        <div className="modal-details">
-          <p>
-            <strong>Ingredients & Preparation:</strong> Made to order with Italian specialty ingredients, slow fermentation dough, and authentic recipes.
+        <div className="modal-details text-muted small">
+          <p className="mb-1">
+            <strong>Ingredients & Preparation:</strong> Made fresh to order with authentic Italian ingredients and artisanal wood-fired techniques.
           </p>
-          <p>
-            <strong>Dietary Info:</strong> Vegetarian and custom choices available upon request.
+          <p className="mb-0">
+            <strong>Dietary Info:</strong> Vegetarian and custom requests available.
           </p>
         </div>
-        <div style={{ marginTop: '24px', textAlign: 'right' }}>
-          <Link to="/reservation" className="btn btn-primary" onClick={() => document.body.style.overflow = ''}>
-            Reserve a table to try this ↗
+        <div className="d-flex justify-content-between align-items-center mt-4">
+          <button 
+            className="btn btn-danger fw-bold px-4"
+            onClick={() => {
+              addToCart(item, 1);
+              showToast(`Added "${item.name}" to cart! 🛒`, 'success');
+            }}
+          >
+            🛒 Add to Cart • €{Number(item.price).toFixed(2)}
+          </button>
+          <Link to="/reservation" className="btn btn-outline-dark btn-sm" onClick={() => document.body.style.overflow = ''}>
+            Book a Table ↗
           </Link>
         </div>
       </div>
@@ -124,29 +153,55 @@ export default function Menu() {
             </div>
           </div>
 
-          <div className="menu-list">
-            {filteredItems.length > 0 ? (
-              filteredItems.map((item) => (
-                <article
-                  key={item.id}
-                  className="menu-item"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => handleDishClick(item)}
-                >
-                  <div>
-                    <span className="menu-number">{item.id}</span>
-                    <h3>{item.name}</h3>
-                    <p>{item.desc}</p>
-                  </div>
-                  <strong>{item.price}</strong>
-                </article>
-              ))
-            ) : (
-              <div className="no-menu-results">
-                <p>No dishes found matching your selection.</p>
-              </div>
-            )}
-          </div>
+          {loading ? (
+            <div className="text-center py-5">
+              <div className="spinner-border text-danger" role="status" />
+            </div>
+          ) : (
+            <div className="menu-list">
+              {filteredItems.length > 0 ? (
+                filteredItems.map((item, index) => (
+                  <article
+                    key={item.id}
+                    className="menu-item d-flex justify-content-between align-items-center"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleDishClick(item)}
+                  >
+                    <div className="d-flex align-items-center gap-3">
+                      {item.image && (
+                        <img 
+                          src={item.image} 
+                          alt={item.name} 
+                          style={{ width: '64px', height: '64px', objectFit: 'cover', borderRadius: '8px' }}
+                        />
+                      )}
+                      <div>
+                        <span className="menu-number">{(index + 1).toString().padStart(2, '0')}</span>
+                        <h3 className="mb-1">{item.name}</h3>
+                        <p className="mb-0">{item.desc}</p>
+                      </div>
+                    </div>
+
+                    <div className="d-flex align-items-center gap-3 ms-3">
+                      <strong className="text-danger fs-5">€{Number(item.price).toFixed(2)}</strong>
+                      <button 
+                        type="button"
+                        className="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 fw-bold"
+                        onClick={(e) => handleAddToCart(e, item)}
+                        title="Add to Cart"
+                      >
+                        + Add 🛒
+                      </button>
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <div className="no-menu-results">
+                  <p>No dishes found matching your selection.</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 

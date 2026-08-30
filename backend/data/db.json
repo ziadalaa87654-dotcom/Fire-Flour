@@ -1,0 +1,719 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "price": 3.99,
+      "stock": 150,
+      "unit": "bag",
+      "rating": 4.7,
+      "reviews": 42,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "organic",
+        "leafy",
+        "healthy"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Organic Baby Spinach",
+      "description": "Freshly harvested organic baby spinach leaves, perfect for salads and smoothies.",
+      "category": "Produce",
+      "weight": "5 oz"
+    },
+    {
+      "id": 2,
+      "price": 4.49,
+      "stock": 80,
+      "unit": "pack",
+      "rating": 4.8,
+      "reviews": 67,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "organic",
+        "trending",
+        "healthy"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Hass Avocados (3-pack)",
+      "description": "Creamy Hass avocados, perfectly ripe and ready to eat.",
+      "category": "Produce",
+      "weight": "1.5 lb"
+    },
+    {
+      "id": 3,
+      "price": 2.99,
+      "stock": 200,
+      "unit": "lb",
+      "rating": 4.5,
+      "reviews": 35,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "vine-ripened",
+        "cooking"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Roma Tomatoes",
+      "description": "Vine-ripened Roma tomatoes, ideal for sauces, salads, and cooking.",
+      "category": "Produce",
+      "weight": "1 lb"
+    },
+    {
+      "id": 4,
+      "price": 5.29,
+      "stock": 90,
+      "unit": "pack",
+      "rating": 4.6,
+      "reviews": 28,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "colorful",
+        "crunchy"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Sweet Bell Peppers (Mixed)",
+      "description": "Colorful mix of red, yellow, and green bell peppers. Crisp and sweet.",
+      "category": "Produce",
+      "weight": "1 lb"
+    },
+    {
+      "id": 5,
+      "price": 6.99,
+      "stock": 60,
+      "unit": "pint",
+      "rating": 4.9,
+      "reviews": 83,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "organic",
+        "superfood",
+        "snack"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Fresh Blueberries",
+      "description": "Plump, juicy blueberries bursting with flavor. Great for baking or snacking.",
+      "category": "Produce",
+      "weight": "1 pint"
+    },
+    {
+      "id": 6,
+      "price": 2.49,
+      "stock": 180,
+      "unit": "bag",
+      "rating": 4.4,
+      "reviews": 31,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "organic",
+        "snack",
+        "kids"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Baby Carrots",
+      "description": "Pre-washed and ready to snack. Sweet and crunchy organic baby carrots.",
+      "category": "Produce",
+      "weight": "1 lb"
+    },
+    {
+      "id": 7,
+      "price": 5.49,
+      "stock": 50,
+      "unit": "gallon",
+      "rating": 4.8,
+      "reviews": 91,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "organic",
+        "pasteurized",
+        "hormone-free"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Organic Whole Milk",
+      "description": "Pasture-raised organic whole milk. Rich, creamy, and hormone-free.",
+      "category": "Dairy",
+      "weight": "1 gallon"
+    },
+    {
+      "id": 8,
+      "price": 4.99,
+      "stock": 120,
+      "unit": "tub",
+      "rating": 4.7,
+      "reviews": 55,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "high-protein",
+        "probiotic"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Greek Yogurt (Plain)",
+      "description": "Thick and creamy Greek yogurt, high in protein. Perfect for breakfast or cooking.",
+      "category": "Dairy",
+      "weight": "32 oz"
+    },
+    {
+      "id": 9,
+      "price": 7.99,
+      "stock": 40,
+      "unit": "block",
+      "rating": 4.9,
+      "reviews": 72,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "artisan",
+        "sharp",
+        "aged"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Aged Cheddar Cheese",
+      "description": "Sharp aged cheddar with a rich, complex flavor. Hand-crafted in small batches.",
+      "category": "Dairy",
+      "weight": "8 oz"
+    },
+    {
+      "id": 10,
+      "price": 4.29,
+      "stock": 100,
+      "unit": "dozen",
+      "rating": 4.8,
+      "reviews": 108,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "free-range",
+        "farm-fresh",
+        "protein"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Free-Range Eggs",
+      "description": "Farm-fresh eggs from free-range hens. Large, golden yolks.",
+      "category": "Dairy",
+      "weight": "1 dozen"
+    },
+    {
+      "id": 11,
+      "price": 5.99,
+      "stock": 75,
+      "unit": "block",
+      "rating": 4.6,
+      "reviews": 44,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "european-style",
+        "baking"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Unsalted Butter",
+      "description": "Creamy European-style unsalted butter. Perfect for baking and cooking.",
+      "category": "Dairy",
+      "weight": "1 lb"
+    },
+    {
+      "id": 12,
+      "price": 5.99,
+      "stock": 30,
+      "unit": "loaf",
+      "rating": 4.9,
+      "reviews": 89,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "artisan",
+        "fermented",
+        "fresh-baked"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Sourdough Bread Loaf",
+      "description": "Artisan sourdough bread with a crispy crust and tangy, chewy interior.",
+      "category": "Bakery",
+      "weight": "1.5 lb"
+    },
+    {
+      "id": 13,
+      "price": 4.49,
+      "stock": 45,
+      "unit": "pack",
+      "rating": 4.5,
+      "reviews": 37,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "whole-grain",
+        "breakfast"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Whole Wheat Bagels (6-pack)",
+      "description": "Dense, chewy whole wheat bagels. Perfect for breakfast with cream cheese.",
+      "category": "Bakery",
+      "weight": "12 oz"
+    },
+    {
+      "id": 14,
+      "price": 6.99,
+      "stock": 25,
+      "unit": "pack",
+      "rating": 4.8,
+      "reviews": 63,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "chocolate",
+        "french",
+        "indulgent"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Chocolate Croissants (4-pack)",
+      "description": "Flaky, buttery croissants filled with rich dark chocolate. Baked fresh daily.",
+      "category": "Bakery",
+      "weight": "10 oz"
+    },
+    {
+      "id": 15,
+      "price": 4.99,
+      "stock": 35,
+      "unit": "loaf",
+      "rating": 4.6,
+      "reviews": 29,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "multigrain",
+        "seeds",
+        "healthy"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Multigrain Bread",
+      "description": "Hearty multigrain bread loaded with seeds. Nutritious and delicious.",
+      "category": "Bakery",
+      "weight": "1.2 lb"
+    },
+    {
+      "id": 16,
+      "price": 8.99,
+      "stock": 60,
+      "unit": "lb",
+      "rating": 4.7,
+      "reviews": 56,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "grass-fed",
+        "ethically-raised",
+        "lean"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Grass-Fed Ground Beef",
+      "description": "Premium grass-fed ground beef. Lean, flavorful, and ethically raised.",
+      "category": "Meat & Seafood",
+      "weight": "1 lb"
+    },
+    {
+      "id": 17,
+      "price": 12.99,
+      "stock": 35,
+      "unit": "fillet",
+      "rating": 4.8,
+      "reviews": 47,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "wild-caught",
+        "omega-3",
+        "premium"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Atlantic Salmon Fillet",
+      "description": "Fresh wild-caught Atlantic salmon. Rich in omega-3 fatty acids.",
+      "category": "Meat & Seafood",
+      "weight": "1 lb"
+    },
+    {
+      "id": 18,
+      "price": 9.49,
+      "stock": 70,
+      "unit": "lb",
+      "rating": 4.6,
+      "reviews": 62,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "organic",
+        "antibiotic-free",
+        "protein"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Organic Chicken Breast",
+      "description": "Boneless, skinless organic chicken breasts. No antibiotics, ever.",
+      "category": "Meat & Seafood",
+      "weight": "1 lb"
+    },
+    {
+      "id": 19,
+      "price": 14.99,
+      "stock": 25,
+      "unit": "lb",
+      "rating": 4.7,
+      "reviews": 38,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "shellfish",
+        "premium",
+        "quick-cook"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Jumbo Shrimp",
+      "description": "Peeled and deveined jumbo shrimp. Perfect for grilling or stir-fry.",
+      "category": "Meat & Seafood",
+      "weight": "1 lb"
+    },
+    {
+      "id": 20,
+      "price": 9.99,
+      "stock": 90,
+      "unit": "bottle",
+      "rating": 4.8,
+      "reviews": 74,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "italian",
+        "cold-pressed",
+        "cooking"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Extra Virgin Olive Oil",
+      "description": "Cold-pressed extra virgin olive oil from Italian olives. Robust flavor.",
+      "category": "Pantry",
+      "weight": "16.9 oz"
+    },
+    {
+      "id": 21,
+      "price": 6.49,
+      "stock": 110,
+      "unit": "bag",
+      "rating": 4.5,
+      "reviews": 41,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "organic",
+        "protein",
+        "gluten-free"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Organic Quinoa",
+      "description": "Pre-washed organic white quinoa. Complete protein, cooks in 15 minutes.",
+      "category": "Pantry",
+      "weight": "1 lb"
+    },
+    {
+      "id": 22,
+      "price": 8.99,
+      "stock": 55,
+      "unit": "jar",
+      "rating": 4.9,
+      "reviews": 68,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "raw",
+        "unfiltered",
+        "natural"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Raw Honey",
+      "description": "Unfiltered, raw wildflower honey. Pure and unprocessed for maximum flavor.",
+      "category": "Pantry",
+      "weight": "16 oz"
+    },
+    {
+      "id": 23,
+      "price": 4.29,
+      "stock": 140,
+      "unit": "can",
+      "rating": 4.7,
+      "reviews": 52,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "italian",
+        "dop",
+        "cooking"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "San Marzano Tomatoes (Canned)",
+      "description": "Authentic DOP San Marzano tomatoes. The gold standard for Italian sauces.",
+      "category": "Pantry",
+      "weight": "28 oz"
+    },
+    {
+      "id": 24,
+      "price": 3.99,
+      "stock": 200,
+      "unit": "shaker",
+      "rating": 4.4,
+      "reviews": 33,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "mineral",
+        "seasoning"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Himalayan Pink Salt",
+      "description": "Fine-grain Himalayan pink salt. Mineral-rich and great for cooking or finishing.",
+      "category": "Pantry",
+      "weight": "1 lb"
+    },
+    {
+      "id": 25,
+      "price": 7.99,
+      "stock": 65,
+      "unit": "bottle",
+      "rating": 4.7,
+      "reviews": 48,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "coffee",
+        "cold-brew",
+        "concentrate"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Cold Brew Coffee",
+      "description": "Smooth, low-acid cold brew coffee concentrate. Just add water or milk.",
+      "category": "Beverages",
+      "weight": "32 oz"
+    },
+    {
+      "id": 26,
+      "price": 5.49,
+      "stock": 80,
+      "unit": "bottle",
+      "rating": 4.6,
+      "reviews": 39,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "fresh-squeezed",
+        "no-sugar",
+        "vitamin-c"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Fresh Orange Juice",
+      "description": "Freshly squeezed orange juice with no added sugar. Pure citrus goodness.",
+      "category": "Beverages",
+      "weight": "52 oz"
+    },
+    {
+      "id": 27,
+      "price": 14.99,
+      "stock": 30,
+      "unit": "tin",
+      "rating": 4.9,
+      "reviews": 57,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "japanese",
+        "organic",
+        "antioxidant"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Matcha Green Tea",
+      "description": "Ceremonial grade matcha from Kyoto, Japan. Vibrant color, umami flavor.",
+      "category": "Beverages",
+      "weight": "2 oz"
+    },
+    {
+      "id": 28,
+      "price": 6.99,
+      "stock": 100,
+      "unit": "pack",
+      "rating": 4.5,
+      "reviews": 44,
+      "status": "available",
+      "image": "",
+      "tags": [
+        "mineral",
+        "sparkling",
+        "zero-calorie"
+      ],
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z",
+      "name": "Sparkling Water (12-pack)",
+      "description": "Naturally sparkling mineral water from the Italian Alps. Crisp and refreshing.",
+      "category": "Beverages",
+      "weight": "12 x 500ml"
+    }
+  ],
+  "categories": [
+    {
+      "id": "produce",
+      "title": "Produce",
+      "count": 0,
+      "description": "Fresh fruits, vegetables, and organic greens."
+    },
+    {
+      "id": "dairy",
+      "title": "Dairy",
+      "count": 0,
+      "description": "Milk, cheese, yogurt, eggs, and butter."
+    },
+    {
+      "id": "bakery",
+      "title": "Bakery",
+      "count": 0,
+      "description": "Freshly baked breads, bagels, pastries, and more."
+    },
+    {
+      "id": "meat-seafood",
+      "title": "Meat & Seafood",
+      "count": 0,
+      "description": "Premium meats, poultry, and fresh seafood."
+    },
+    {
+      "id": "pantry",
+      "title": "Pantry",
+      "count": 0,
+      "description": "Oils, grains, spices, canned goods, and staples."
+    },
+    {
+      "id": "beverages",
+      "title": "Beverages",
+      "count": 0,
+      "description": "Coffee, tea, juices, and refreshing drinks."
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin User",
+      "email": "admin@freshmart.com",
+      "password": "098e38b95ee647a75f78912ac7191783:95a27c2b0df83c2d94a0875c3598b1c993b4a4f116d3b87d010814a8adc13a7ddd9666e8e7174ead86c19b129d6957d53d4116faba918488aa3b7c0fc1ccbb2e",
+      "role": "Admin",
+      "status": "Active",
+      "joined": "Aug 12, 2026",
+      "bio": "FreshMart platform administrator."
+    },
+    {
+      "id": 2,
+      "name": "Chef Marco",
+      "email": "marco@freshmart.com",
+      "password": "f9d2badcc68eaaf94df258c8685f9534:870dacdfeb726720f58150ae87725dc7f88ab1d70b607ee7f4053191804b7b5e461a42d888a1821a8f674c03fbafffb7a31b8b5ddf54fdb49852941da0b09123",
+      "role": "Staff",
+      "status": "Active",
+      "joined": "Aug 09, 2026",
+      "bio": "Head chef and product curator."
+    },
+    {
+      "id": 3,
+      "name": "Ziad Alaa",
+      "email": "ziad@gmail.com",
+      "password": "efcd470560b36ffd96358059c2e50657:72d6d545179a623ab7f1efd8d08c83889d08d8cf7fd9121fad0b66baf589282162dd7f47ea8a9a77b01b391f68591c13fe58d7c6cf1dd1f75f542c191316ea20",
+      "role": "Customer",
+      "status": "Active",
+      "joined": "Aug 04, 2026",
+      "bio": ""
+    },
+    {
+      "id": 4,
+      "name": "James Park",
+      "email": "james@example.com",
+      "password": "d3449548594e433b4eee5d7f5d63a601:03cbb428a09230c78c7af54d51655243b97afc980abcb119332870e0645dde8de9c9e626b5093fdd997cf596d5a38dcb036ca21fdd23bfd6866788da423b5972",
+      "role": "Customer",
+      "status": "Suspended",
+      "joined": "Jul 27, 2026",
+      "bio": ""
+    },
+    {
+      "id": 5,
+      "name": "Lily Chen",
+      "email": "lily@freshmart.com",
+      "password": "511bd3d94dc8f4b4463c5621e9076ede:d03a72e4ae4a0b99090c0e913605f15d71c98bfe6861ae7784998f71f52b9a725b7aa8b7487c6fcc6ca593774ec7bb58c6c1a7cb9b2f544f1a888146d28225bf",
+      "role": "Staff",
+      "status": "Active",
+      "joined": "Jul 18, 2026",
+      "bio": ""
+    },
+    {
+      "id": 6,
+      "name": "Ryan Brooks",
+      "email": "ryan@example.com",
+      "password": "b6622c12e4bba47c511c813e5d25471b:4ee32305f1e5ae037e1eb6de5628658737f57f917166c205847caaf013a09fc2daa2e534a3d01d2bcdb7a09af99cd80b58ab87cc99b252fbc73a1e4e30b97b8d",
+      "role": "Customer",
+      "status": "Active",
+      "joined": "Jul 02, 2026",
+      "bio": ""
+    }
+  ],
+  "orders": [
+    {
+      "id": "o-1",
+      "userId": 3,
+      "items": [
+        {
+          "productId": 1,
+          "name": "Organic Baby Spinach",
+          "price": 3.99,
+          "quantity": 2
+        },
+        {
+          "productId": 7,
+          "name": "Organic Whole Milk",
+          "price": 5.49,
+          "quantity": 1
+        },
+        {
+          "productId": 10,
+          "name": "Free-Range Eggs",
+          "price": 4.29,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 17.76,
+      "tax": 1.42,
+      "total": 19.18,
+      "status": "delivered",
+      "address": "123 Main St, Apt 4B, New York, NY 10001",
+      "createdAt": "2026-08-26T02:42:07.735Z",
+      "updatedAt": "2026-08-26T02:42:07.735Z"
+    }
+  ]
+}

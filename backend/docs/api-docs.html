@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FreshMart API Documentation</title>
+<style>
+:root {
+  --swagger-green: #1b7f37;
+  --swagger-green-light: #61affe;
+  --swagger-bg: #fafafa;
+  --swagger-panel: #fff;
+  --swagger-border: #e1e4e8;
+  --swagger-text: #3b4151;
+  --swagger-muted: #6b7280;
+  --swagger-code-bg: #f3f4f6;
+  --method-get: #61affe;
+  --method-post: #49cc90;
+  --method-put: #fca130;
+  --method-patch: #50e3c2;
+  --method-delete: #f93e3e;
+  --sidebar-w: 240px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--swagger-bg);
+  color: var(--swagger-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.topbar {
+  background: #1b1b1b;
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,.3);
+}
+.topbar h1 { font-size: 18px; font-weight: 600; letter-spacing: .3px; }
+.topbar .version { font-size: 12px; color: #a0aec0; margin-left: 10px; background: #2d3748; padding: 2px 8px; border-radius: 4px; }
+.topbar .auth-btns { display: flex; gap: 8px; align-items: center; }
+.topbar .auth-btns button {
+  cursor: pointer; border: 1px solid #4a5568; border-radius: 4px;
+  padding: 6px 14px; font-size: 13px; font-weight: 600; transition: all .15s;
+}
+.btn-authorize { background: #1b7f37; color: #fff; border-color: #1b7f37 !important; }
+.btn-authorize:hover { background: #155d2a; }
+.btn-authorize.active { background: #2d8659; }
+.btn-clear { background: transparent; color: #a0aec0; }
+.btn-clear:hover { color: #fff; border-color: #718096; }
+.auth-status { font-size: 12px; color: #68d391; }
+
+.layout { display: flex; min-height: calc(100vh - 49px); }
+
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: #3b4151;
+  padding: 16px 0;
+  overflow-y: auto;
+  position: sticky;
+  top: 49px;
+  height: calc(100vh - 49px);
+}
+.sidebar h3 {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 20px 6px;
+  margin-top: 8px;
+}
+.sidebar a {
+  display: block;
+  padding: 7px 20px 7px 24px;
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all .12s;
+}
+.sidebar a:hover { background: rgba(255,255,255,.06); color: #fff; }
+.sidebar a.active { background: rgba(255,255,255,.1); color: #fff; border-left-color: #61affe; }
+.sidebar .tag-count {
+  display: inline-block; background: rgba(255,255,255,.12);
+  font-size: 11px; padding: 1px 6px; border-radius: 8px; margin-left: 4px;
+}
+
+.main { flex: 1; padding: 20px 28px 80px; max-width: 960px; }
+
+.info-box {
+  background: #fff;
+  border: 1px solid var(--swagger-border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.info-box h2 { font-size: 20px; color: var(--swagger-text); margin-bottom: 6px; }
+.info-box p { color: var(--swagger-muted); font-size: 13.5px; }
+.info-box .info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.info-box .info-item { font-size: 12.5px; color: var(--swagger-muted); }
+.info-box .info-item strong { color: var(--swagger-text); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 2px; }
+
+.tag-section { margin-bottom: 8px; }
+.tag-header {
+  background: #3b4151;
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  position: sticky;
+  top: 49px;
+  z-index: 10;
+}
+.tag-header .tag-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: #a0aec0;
+  margin-left: 10px;
+}
+.tag-header .chevron {
+  transition: transform .2s;
+  font-size: 12px;
+}
+.tag-section.collapsed .tag-header { border-radius: 6px; }
+.tag-section.collapsed .chevron { transform: rotate(-90deg); }
+.tag-section.collapsed .tag-body { display: none; }
+.tag-body { border: 1px solid var(--swagger-border); border-top: none; border-radius: 0 0 6px 6px; overflow: hidden; }
+
+.endpoint-row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--swagger-border);
+  cursor: pointer;
+  background: #fff;
+  transition: background .1s;
+}
+.endpoint-row:last-child { border-bottom: none; }
+.endpoint-row:hover { background: #f8f9fa; }
+.endpoint-row .method-cell {
+  width: 90px;
+  min-width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 10px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: #fff;
+}
+.method-cell.GET { background: var(--method-get); }
+.method-cell.POST { background: var(--method-post); }
+.method-cell.PUT { background: var(--method-put); }
+.method-cell.PATCH { background: var(--method-patch); }
+.method-cell.DELETE { background: var(--method-delete); }
+.endpoint-row .path-cell {
+  flex: 1;
+  padding: 12px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.path-cell .path-text {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--swagger-text);
+}
+.path-cell .summary-text {
+  font-size: 12.5px;
+  color: var(--swagger-muted);
+}
+.path-cell .lock-icon {
+  font-size: 11px;
+  color: #e53e3e;
+  font-weight: 700;
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 3px;
+  padding: 1px 6px;
+}
+.path-cell .lock-icon.bearer { color: #dd6b20; background: #fffaf0; border-color: #feebc8; }
+.path-cell .lock-icon.admin { color: #e53e3e; background: #fff5f5; border-color: #fed7d7; }
+
+.endpoint-detail {
+  display: none;
+  border-top: 1px solid var(--swagger-border);
+  background: #fff;
+}
+.endpoint-row.open + .endpoint-detail { display: block; }
+.endpoint-detail .detail-inner { padding: 16px 20px; }
+.endpoint-detail .detail-desc {
+  font-size: 13.5px;
+  color: var(--swagger-muted);
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--swagger-border);
+}
+
+.detail-section { margin-bottom: 18px; }
+.detail-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  color: var(--swagger-muted);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.params-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.params-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--swagger-muted);
+  padding: 8px 10px;
+  background: #f7fafc;
+  border-bottom: 1px solid var(--swagger-border);
+}
+.params-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #edf2f7;
+  vertical-align: top;
+}
+.params-table td:first-child {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.params-table .param-required {
+  color: #e53e3e;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+.params-table .param-in {
+  color: #805ad5;
+  font-size: 11px;
+  font-weight: 600;
+}
+.params-table .param-type {
+  color: #2b6cb0;
+  font-size: 12px;
+}
+.params-table .param-desc { color: var(--swagger-muted); font-size: 12.5px; }
+
+.body-example {
+  background: #1e293b;
+  border-radius: 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #e2e8f0;
+  margin-top: 6px;
+}
+.body-example .key { color: #7dd3fc; }
+.body-example .str { color: #86efac; }
+.body-example .num { color: #fde68a; }
+.body-example .bool { color: #c4b5fd; }
+.body-example .null { color: #fca5a5; }
+.body-example .bracket { color: #94a3b8; }
+
+.response-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 6px 0;
+  border-bottom: 1px solid #f1f5f9;
+  gap: 10px;
+}
+.response-item:last-child { border-bottom: none; }
+.response-status {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  min-width: 36px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-align: center;
+}
+.response-status.s2xx { background: #f0fff4; color: #276749; }
+.response-status.s3xx { background: #ebf8ff; color: #2b6cb0; }
+.response-status.s4xx { background: #fff5f5; color: #c53030; }
+.response-status.s5xx { background: #fff5f5; color: #9b2c2c; }
+.response-desc { font-size: 12.5px; color: var(--swagger-muted); flex: 1; }
+.response-example {
+  margin-top: 4px;
+  background: #1e293b;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: #cbd5e1;
+  overflow-x: auto;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.try-section {
+  background: #f7fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 14px;
+}
+.try-section h5 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--swagger-muted);
+  margin-bottom: 10px;
+}
+.try-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; align-items: center; }
+.try-row input[type="text"], .try-row textarea {
+  flex: 1;
+  background: #fff;
+  color: var(--swagger-text);
+  border: 1px solid var(--swagger-border);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12.5px;
+}
+.try-row input[type="text"]:focus, .try-row textarea:focus {
+  outline: none;
+  border-color: #61affe;
+  box-shadow: 0 0 0 2px rgba(97,175,254,.2);
+}
+.try-row textarea { min-height: 100px; resize: vertical; width: 100%; }
+.try-row label { font-size: 12px; color: var(--swagger-muted); font-weight: 600; min-width: 50px; }
+.btn-execute {
+  background: #49cc90;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-execute:hover { background: #38a169; }
+.btn-execute:disabled { background: #a0aec0; cursor: wait; }
+.btn-clear-response {
+  background: transparent;
+  color: #e53e3e;
+  border: 1px solid #e53e3e;
+  border-radius: 4px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.response-panel {
+  margin-top: 12px;
+  border: 1px solid var(--swagger-border);
+  border-radius: 6px;
+  overflow: hidden;
+  display: none;
+}
+.response-panel .response-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f7fafc;
+  border-bottom: 1px solid var(--swagger-border);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.response-panel .response-header.ok { color: #276749; }
+.response-panel .response-header.err { color: #c53030; }
+.response-panel .response-body {
+  background: #1e293b;
+  padding: 12px 14px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #e2e8f0;
+  max-height: 300px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { padding: 16px; }
+  .method-cell { width: 60px; min-width: 60px; font-size: 11px; }
+  .path-cell .path-text { font-size: 12px; }
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a0aec0; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;">
+    <h1>FreshMart API</h1>
+    <span class="version">v1.0.0</span>
+  </div>
+  <div class="auth-btns">
+    <span class="auth-status" id="authStatus"></span>
+    <button class="btn-authorize" id="authorizeBtn">Authorize</button>
+    <button class="btn-clear" id="clearBtn">Logout</button>
+  </div>
+</div>
+
+<div class="layout">
+  
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <div class="main">
+    <div class="info-box">
+      <h2>FreshMart API</h2>
+      <p>REST backend for the React food-store frontend. Node.js + Express with a JSON file database (<code>data/db.json</code>). All data survives restarts; delete the file to reset to seed data.</p>
+      <div class="info-grid">
+        <div class="info-item"><strong>Base URL</strong> http:
+        <div class="info-item"><strong>Auth</strong> Bearer token (HMAC, 7-day expiry)</div>
+        <div class="info-item"><strong>Storage</strong> JSON file (data/db.json)</div>
+        <div class="info-item"><strong>CORS</strong> Vite dev server allowed</div>
+        <div class="info-item"><strong>Demo Admin</strong> admin@freshmart.com</div>
+        <div class="info-item"><strong>Demo Password</strong> password123</div>
+      </div>
+    </div>
+    <div id="endpoints"></div>
+  </div>
+</div>
+
+<script>
+const ENDPOINTS = [
+  {
+    id: 'health', group: 'Health', tag: 'health',
+    groupDesc: 'Server status and database counts.',
+    method: 'GET', path: '/api/health',
+    summary: 'Health check \u2014 server status, uptime, and JSON DB record counts.',
+    responses: [
+      { status: 200, description: 'Server is up.', example: { success: true, status: 'ok', uptimeSeconds: 12, storage: 'backend/data/db.json', counts: { products: 30, users: 4, categories: 6, orders: 1 } } },
+    ],
+  },
+  {
+    id: 'auth-register', group: 'Auth', tag: 'auth',
+    groupDesc: 'Register, login, and read the current user. Login/register return a Bearer token (HMAC-signed, 7-day expiry).',
+    method: 'POST', path: '/api/auth/register',
+    summary: 'Create a new Customer account.',
+    bodyExample: { name: 'Emma Wilson', email: 'emma@example.com', password: 'password123' },
+    bodyParams: [
+      { name: 'name', type: 'string', required: true, description: 'Full name (2-50 characters).' },
+      { name: 'email', type: 'string', required: true, description: 'Valid email address, must be unique.' },
+      { name: 'password', type: 'string', required: true, description: 'Min 6 characters.' },
+    ],
+    responses: [
+      { status: 201, description: 'Account created. Returns token + user.', example: { success: true, message: 'Account created.', token: '<header>.<payload>.<signature>', user: { id: 5, name: 'Emma Wilson', email: 'emma@example.com', role: 'Customer' } } },
+      { status: 400, description: 'Validation failed (name/email/password rules).' },
+      { status: 409, description: 'Email already registered.' },
+    ],
+  },
+  {
+    id: 'auth-login', group: 'Auth', tag: 'auth',
+    method: 'POST', path: '/api/auth/login',
+    summary: 'Log in and receive a Bearer token.',
+    bodyExample: { email: 'admin@freshmart.com', password: 'password123' },
+    bodyParams: [
+      { name: 'email', type: 'string', required: true, description: 'Registered email address.' },
+      { name: 'password', type: 'string', required: true, description: 'Account password.' },
+    ],
+    responses: [
+      { status: 200, description: 'Logged in. Returns token + user.', example: { success: true, message: 'Logged in.', token: '<header>.<payload>.<signature>', user: { id: 1, name: 'Admin User', email: 'admin@freshmart.com', role: 'Admin' } } },
+      { status: 401, description: 'Invalid email or password.' },
+      { status: 403, description: 'Account suspended.' },
+    ],
+  },
+  {
+    id: 'auth-me', group: 'Auth', tag: 'auth',
+    method: 'GET', path: '/api/auth/me', auth: 'Bearer',
+    summary: 'Get the currently authenticated user.',
+    responses: [
+      { status: 200, description: 'Current user profile.', example: { success: true, user: { id: 1, name: 'Admin User', email: 'admin@freshmart.com', role: 'Admin', status: 'Active', joined: 'Aug 12, 2026', bio: 'FreshMart platform administrator.' } } },
+      { status: 401, description: 'Missing/invalid token.' },
+    ],
+  },
+  {
+    id: 'products-list', group: 'Products', tag: 'products',
+    groupDesc: 'Product catalog CRUD. Reads are public; create/update/delete require an Admin token. Powers Home, Shop, and ProductDetails pages.',
+    method: 'GET', path: '/api/products',
+    summary: 'List all products with search, category, and price filters.',
+    params: [
+      { name: 'q', type: 'string', required: false, in: 'query', description: 'Search name, description, category, tags.' },
+      { name: 'category', type: 'string', required: false, in: 'query', description: 'Produce | Dairy | Bakery | Meat & Seafood | Pantry | Beverages | all' },
+      { name: 'minPrice', type: 'number', required: false, in: 'query', description: 'Minimum price filter.' },
+      { name: 'maxPrice', type: 'number', required: false, in: 'query', description: 'Maximum price filter.' },
+      { name: 'inStock', type: 'boolean', required: false, in: 'query', description: 'If true, only return in-stock items.' },
+    ],
+    responses: [
+      { status: 200, description: 'Full filtered product list.', example: { success: true, total: 30, products: [{ id: 1, name: 'Organic Baby Spinach', category: 'Produce', price: 3.99, stock: 150, unit: 'bag', rating: 4.7 }] } },
+    ],
+  },
+  {
+    id: 'products-get', group: 'Products', tag: 'products',
+    method: 'GET', path: '/api/products/{id}',
+    summary: 'Get one product by numeric id.',
+    params: [{ name: 'id', type: 'integer', required: true, in: 'path', description: 'Product id, e.g. 1' }],
+    responses: [
+      { status: 200, description: 'Full product object.', example: { success: true, product: { id: 1, name: 'Organic Baby Spinach', description: 'Freshly harvested organic baby spinach leaves...', category: 'Produce', price: 3.99, stock: 150 } } },
+      { status: 404, description: 'Product not found.' },
+    ],
+  },
+  {
+    id: 'products-create', group: 'Products', tag: 'products',
+    method: 'POST', path: '/api/products', auth: 'Admin',
+    summary: 'Create a product. Requires Admin role.',
+    bodyExample: { name: 'Organic Quinoa', description: 'Pre-washed organic white quinoa. Complete protein, cooks in 15 minutes.', category: 'Pantry', price: 6.49, stock: 110, unit: 'bag', weight: '1 lb', tags: ['organic', 'protein', 'gluten-free'] },
+    bodyParams: [
+      { name: 'name', type: 'string', required: true, description: 'Product name.' },
+      { name: 'description', type: 'string', required: false, description: 'Product description.' },
+      { name: 'category', type: 'string', required: true, description: 'Must match a valid category.' },
+      { name: 'price', type: 'number', required: true, description: 'Price in USD, min 0.' },
+      { name: 'stock', type: 'integer', required: false, description: 'Stock quantity, default 0.' },
+      { name: 'unit', type: 'string', required: false, description: 'e.g. bag, lb, oz, each.' },
+      { name: 'weight', type: 'string', required: false, description: 'e.g. 1 lb, 500g.' },
+      { name: 'tags', type: 'array', required: false, description: 'Array of tag strings.' },
+    ],
+    responses: [
+      { status: 201, description: 'Created. Returns the new product (auto-incremented numeric id).', example: { success: true, message: 'Product created.', product: { id: 31, name: 'Organic Quinoa', status: 'available' } } },
+      { status: 400, description: 'Validation errors array returned.' },
+      { status: 401, description: 'Not authenticated.' },
+      { status: 403, description: 'Not an Admin.' },
+    ],
+  },
+  {
+    id: 'products-update', group: 'Products', tag: 'products',
+    method: 'PUT', path: '/api/products/{id}', auth: 'Admin',
+    summary: 'Update any subset of product fields (partial update allowed).',
+    params: [{ name: 'id', type: 'integer', required: true, in: 'path', description: 'Product id.' }],
+    bodyExample: { price: 7.99, stock: 200 },
+    bodyParams: [
+      { name: 'name', type: 'string', required: false, description: 'New product name.' },
+      { name: 'description', type: 'string', required: false, description: 'New description.' },
+      { name: 'category', type: 'string', required: false, description: 'New category.' },
+      { name: 'price', type: 'number', required: false, description: 'New price.' },
+      { name: 'stock', type: 'integer', required: false, description: 'New stock level.' },
+    ],
+    responses: [
+      { status: 200, description: 'Updated product returned.' },
+      { status: 400, description: 'Validation errors.' },
+      { status: 404, description: 'Product not found.' },
+    ],
+  },
+  {
+    id: 'products-delete', group: 'Products', tag: 'products',
+    method: 'DELETE', path: '/api/products/{id}', auth: 'Admin',
+    summary: 'Delete a product and remove it from existing orders.',
+    params: [{ name: 'id', type: 'integer', required: true, in: 'path', description: 'Product id.' }],
+    responses: [
+      { status: 200, description: 'Deleted.', example: { success: true, message: "Product 'Organic Baby Spinach' deleted." } },
+      { status: 404, description: 'Product not found.' },
+    ],
+  },
+  {
+    id: 'categories-list', group: 'Categories', tag: 'categories',
+    groupDesc: 'Category cards shown on the Home page. Counts are computed live from the catalog.',
+    method: 'GET', path: '/api/categories',
+    summary: 'List categories with live product counts.',
+    responses: [
+      { status: 200, description: 'Category list.', example: { success: true, categories: [{ id: 'produce', title: 'Produce', count: 6, description: 'Fresh fruits, vegetables, and organic greens.' }, { id: 'dairy', title: 'Dairy', count: 5, description: 'Milk, cheese, yogurt, eggs, and butter.' }] } },
+    ],
+  },
+  {
+    id: 'orders-create', group: 'Orders', tag: 'orders',
+    groupDesc: 'Per-user order records with status tracking. All endpoints require authentication. Powers My Orders, Checkout, and Order History.',
+    method: 'POST', path: '/api/orders', auth: 'Bearer',
+    summary: 'Place a new order with items and delivery address.',
+    bodyExample: { items: [{ productId: 1, quantity: 2 }, { productId: 7, quantity: 1 }], address: '123 Main St, New York, NY 10001' },
+    bodyParams: [
+      { name: 'items', type: 'array', required: true, description: 'Array of { productId: number, quantity: number }. Must contain at least one item.' },
+      { name: 'address', type: 'string', required: true, description: 'Full delivery address.' },
+    ],
+    responses: [
+      { status: 201, description: 'Order placed. Returns order with computed totals.', example: { success: true, message: 'Order placed.', order: { id: 'o-abc123-x9y2', items: [{ productId: 1, name: 'Organic Baby Spinach', price: 3.99, quantity: 2 }], subtotal: 13.47, tax: 1.08, total: 14.55, status: 'pending' } } },
+      { status: 400, description: 'Validation errors (empty items, invalid address, insufficient stock).' },
+      { status: 404, description: 'Product not found.' },
+    ],
+  },
+  {
+    id: 'orders-mine', group: 'Orders', tag: 'orders',
+    method: 'GET', path: '/api/orders/me', auth: 'Bearer',
+    summary: "List the signed-in user's orders.",
+    responses: [
+      { status: 200, description: 'User orders.', example: { success: true, total: 1, orders: [{ id: 'o-1', items: [{ productId: 1, name: 'Organic Baby Spinach', price: 3.99, quantity: 2 }, { productId: 7, name: 'Fresh Whole Milk', price: 4.49, quantity: 1 }], subtotal: 17.76, tax: 1.42, total: 19.18, status: 'delivered', address: '123 Main St, Apt 4B, New York, NY 10001' }] } },
+      { status: 401, description: 'Missing/invalid token.' },
+    ],
+  },
+  {
+    id: 'orders-list', group: 'Orders', tag: 'orders',
+    method: 'GET', path: '/api/orders', auth: 'Admin',
+    summary: 'Search/list all orders (Admin only).',
+    params: [
+      { name: 'q', type: 'string', required: false, in: 'query', description: 'Matches order id, address, or item names.' },
+      { name: 'status', type: 'string', required: false, in: 'query', description: 'pending | confirmed | shipped | delivered | cancelled | all' },
+    ],
+    responses: [
+      { status: 200, description: 'Matching orders.', example: { success: true, total: 1, orders: [{ id: 'o-1', userId: 3, total: 19.18, status: 'delivered' }] } },
+      { status: 403, description: 'Admin role required.' },
+    ],
+  },
+  {
+    id: 'orders-update-status', group: 'Orders', tag: 'orders',
+    method: 'PATCH', path: '/api/orders/{orderId}/status', auth: 'Bearer',
+    summary: "Update an order's status. Customers can only cancel their own pending orders; Admin/Staff can update any order.",
+    params: [{ name: 'orderId', type: 'string', required: true, in: 'path', description: 'Order id, e.g. o-1' }],
+    bodyExample: { status: 'confirmed' },
+    bodyParams: [
+      { name: 'status', type: 'string', required: true, description: 'pending | confirmed | shipped | delivered | cancelled' },
+    ],
+    responses: [
+      { status: 200, description: 'Status updated.' },
+      { status: 400, description: 'Invalid status or order cannot be cancelled.' },
+      { status: 403, description: "Customer trying to update another user's order." },
+      { status: 404, description: 'Order not found.' },
+    ],
+  },
+  {
+    id: 'orders-delete', group: 'Orders', tag: 'orders',
+    method: 'DELETE', path: '/api/orders/{orderId}', auth: 'Bearer',
+    summary: 'Delete an order. Customers can only delete their own orders.',
+    params: [{ name: 'orderId', type: 'string', required: true, in: 'path', description: 'Order id.' }],
+    responses: [
+      { status: 200, description: 'Deleted.' },
+      { status: 403, description: "Customer trying to delete another user's order." },
+      { status: 404, description: 'Order not found.' },
+    ],
+  },
+  {
+    id: 'users-update-me', group: 'Users', tag: 'users',
+    groupDesc: 'Profile self-service plus admin user management.',
+    method: 'PATCH', path: '/api/users/me', auth: 'Bearer',
+    summary: 'Update my own profile (name / email / bio).',
+    bodyExample: { name: 'Emma W.', email: 'emma@example.com', bio: 'Love organic food.' },
+    bodyParams: [
+      { name: 'name', type: 'string', required: false, description: 'New display name.' },
+      { name: 'email', type: 'string', required: false, description: 'New email (must be unique).' },
+      { name: 'bio', type: 'string', required: false, description: 'Profile bio text.' },
+    ],
+    responses: [
+      { status: 200, description: 'Updated user returned (password never included).', example: { success: true, message: 'Profile updated.', user: { id: 3, name: 'Emma W.', email: 'emma@example.com' } } },
+      { status: 400, description: 'Validation failed.' },
+      { status: 409, description: 'Email already in use.' },
+    ],
+  },
+  {
+    id: 'users-list', group: 'Users', tag: 'users',
+    method: 'GET', path: '/api/users', auth: 'Admin',
+    summary: 'Search/list users.',
+    params: [
+      { name: 'q', type: 'string', required: false, in: 'query', description: 'Matches name or email (case-insensitive).' },
+      { name: 'status', type: 'string', required: false, in: 'query', description: 'Active | Suspended | all' },
+      { name: 'role', type: 'string', required: false, in: 'query', description: 'Admin | Staff | Customer | all' },
+    ],
+    responses: [
+      { status: 200, description: 'Matching users (passwords stripped).', example: { success: true, total: 4, users: [{ id: 1, name: 'Admin User', email: 'admin@freshmart.com', role: 'Admin', status: 'Active', joined: 'Aug 12, 2026' }] } },
+      { status: 403, description: 'Admin role required.' },
+    ],
+  },
+  {
+    id: 'users-create', group: 'Users', tag: 'users',
+    method: 'POST', path: '/api/users', auth: 'Admin',
+    summary: 'Create a user directly from admin panel (no password set).',
+    bodyExample: { name: 'New Staff', email: 'staff@freshmart.com', role: 'Staff' },
+    bodyParams: [
+      { name: 'name', type: 'string', required: true, description: 'User full name.' },
+      { name: 'email', type: 'string', required: true, description: 'Unique email address.' },
+      { name: 'role', type: 'string', required: false, description: 'Admin | Staff | Customer (default: Customer).' },
+    ],
+    responses: [
+      { status: 201, description: 'User created.' },
+      { status: 409, description: 'Email already exists.' },
+    ],
+  },
+  {
+    id: 'users-toggle-status', group: 'Users', tag: 'users',
+    method: 'PATCH', path: '/api/users/{id}/status', auth: 'Admin',
+    summary: "Toggle Active/Suspended (or pass an explicit { status }).",
+    params: [{ name: 'id', type: 'integer', required: true, in: 'path', description: 'User id, e.g. 4' }],
+    bodyExample: {},
+    bodyParams: [
+      { name: 'status', type: 'string', required: false, description: 'Active | Suspended. If omitted, toggles current status.' },
+    ],
+    responses: [
+      { status: 200, description: 'Status flipped and returned.', example: { success: true, message: 'User is now Suspended.', user: { id: 4, name: 'James Park', status: 'Suspended' } } },
+      { status: 400, description: 'Cannot suspend your own account.' },
+      { status: 404, description: 'User not found.' },
+    ],
+  },
+  {
+    id: 'users-set-role', group: 'Users', tag: 'users',
+    method: 'PATCH', path: '/api/users/{id}/role', auth: 'Admin',
+    summary: 'Change a user role (Admin | Staff | Customer).',
+    params: [{ name: 'id', type: 'integer', required: true, in: 'path', description: 'User id.' }],
+    bodyExample: { role: 'Staff' },
+    bodyParams: [
+      { name: 'role', type: 'string', required: true, description: 'Admin | Staff | Customer' },
+    ],
+    responses: [
+      { status: 200, description: 'Role updated.' },
+      { status: 400, description: 'Invalid role.' },
+      { status: 404, description: 'User not found.' },
+    ],
+  },
+  {
+    id: 'users-delete', group: 'Users', tag: 'users',
+    method: 'DELETE', path: '/api/users/{id}', auth: 'Admin',
+    summary: 'Delete a user (cascade removes their orders). Cannot delete yourself.',
+    params: [{ name: 'id', type: 'integer', required: true, in: 'path', description: 'User id.' }],
+    responses: [
+      { status: 200, description: 'Deleted.' },
+      { status: 400, description: 'Cannot delete your own account.' },
+      { status: 404, description: 'User not found.' },
+    ],
+  },
+  {
+    id: 'stats-me', group: 'Stats', tag: 'stats',
+    groupDesc: 'Aggregates for Dashboard (customer) and Admin analytics screens.',
+    method: 'GET', path: '/api/stats/me', auth: 'Bearer',
+    summary: 'Customer dashboard KPIs for the signed-in user.',
+    responses: [
+      { status: 200, description: 'KPI values for StatCards.', example: { success: true, stats: { totalOrders: 3, totalSpent: 45.67, totalItems: 12, averageOrderValue: 15.22 } } },
+      { status: 401, description: 'Authentication required.' },
+    ],
+  },
+  {
+    id: 'stats-admin', group: 'Stats', tag: 'stats',
+    method: 'GET', path: '/api/stats/admin', auth: 'Admin',
+    summary: 'Platform KPIs for the admin dashboard.',
+    responses: [
+      { status: 200, description: 'Platform totals.', example: { success: true, stats: { totalProducts: 30, totalUsers: 4, activeUsers: 3, totalOrders: 5, totalRevenue: 142.50, categoryPerformance: [{ title: 'Produce', count: 6 }] } } },
+      { status: 403, description: 'Admin role required.' },
+    ],
+  },
+];
+</script>
+<script>
+(function(){
+  const $ = (s,p)=> (p||document).querySelector(s);
+  const $$ = (s,p)=> [...(p||document).querySelectorAll(s)];
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  /* ── State ── */
+  let token = localStorage.getItem('foodstore-token') || '';
+  const baseUrl = location.protocol.startsWith('http') && location.port === '4000'
+    ? location.origin : 'http://localhost:4000';
+
+  /* ── Auth ── */
+  const authStatus = $('#authStatus');
+  const authorizeBtn = $('#authorizeBtn');
+  const clearBtn = $('#clearBtn');
+
+  function paintAuth(){
+    if(token){
+      authStatus.textContent = 'Authenticated';
+      authorizeBtn.classList.add('active');
+      authorizeBtn.textContent = 'Authorize (active)';
+    } else {
+      authStatus.textContent = '';
+      authorizeBtn.classList.remove('active');
+      authorizeBtn.textContent = 'Authorize';
+    }
+  }
+
+  authorizeBtn.addEventListener('click', async ()=>{
+    const email = prompt('Email:', 'admin@freshmart.com');
+    if(!email) return;
+    const password = prompt('Password:', 'password123');
+    if(!password) return;
+    try {
+      const res = await fetch(baseUrl+'/api/auth/login', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({email, password})
+      });
+      const j = await res.json();
+      if(!res.ok || !j.token) throw new Error(j.message||'Login failed');
+      token = j.token;
+      localStorage.setItem('foodstore-token', token);
+      paintAuth();
+    } catch(e){ alert('Auth failed: '+e.message); }
+  });
+
+  clearBtn.addEventListener('click', ()=>{
+    token = '';
+    localStorage.removeItem('foodstore-token');
+    paintAuth();
+  });
+
+  /* ── Syntax highlight helpers ── */
+  function jsonHtml(obj, depth){
+    depth = depth || 0;
+    const pad = '  '.repeat(depth+1);
+    const padInner = '  '.repeat(depth+2);
+    if(obj === null) return '<span class="null">null</span>';
+    if(typeof obj === 'boolean') return '<span class="bool">'+obj+'</span>';
+    if(typeof obj === 'number') return '<span class="num">'+obj+'</span>';
+    if(typeof obj === 'string') return '<span class="str">"'+esc(obj)+'"</span>';
+    if(Array.isArray(obj)){
+      if(obj.length===0) return '<span class="bracket">[]</span>';
+      const items = obj.map(v=> padInner+jsonHtml(v, depth+1)).join(',\n');
+      return '<span class="bracket">[</span>\n'+items+'\n'+pad+'<span class="bracket">]</span>';
+    }
+    const keys = Object.keys(obj);
+    if(keys.length===0) return '<span class="bracket">{}</span>';
+    const entries = keys.map(k=> padInner+'<span class="key">"'+esc(k)+'"</span>: '+jsonHtml(obj[k], depth+1)).join(',\n');
+    return '<span class="bracket">{</span>\n'+entries+'\n'+pad+'<span class="bracket">}</span>';
+  }
+
+  function syntaxJson(obj){
+    if(typeof obj === 'string'){
+      try { return syntaxJson(JSON.parse(obj)); } catch(e){ return esc(obj); }
+    }
+    return jsonHtml(obj, 0);
+  }
+
+  /* ── Build sidebar ── */
+  const groups = [];
+  const groupMap = {};
+  ENDPOINTS.forEach(ep=>{
+    if(!groupMap[ep.group]){
+      groupMap[ep.group] = { name: ep.group, tag: ep.tag, desc: ep.groupDesc, count: 0 };
+      groups.push(groupMap[ep.group]);
+    }
+    groupMap[ep.group].count++;
+  });
+
+  let sidebarHtml = '<h3>API Endpoints</h3>';
+  groups.forEach(g=>{
+    sidebarHtml += '<a href="#tag-'+g.tag+'" data-tag="'+g.tag+'">'+esc(g.name)+'<span class="tag-count">'+g.count+'</span></a>';
+  });
+  $('#sidebar').innerHTML = sidebarHtml;
+
+  /* ── Build endpoint HTML ── */
+  let lastGroup = '';
+  let html = '';
+
+  ENDPOINTS.forEach(ep=>{
+    const isNewGroup = ep.group !== lastGroup;
+    if(isNewGroup){
+      if(lastGroup) html += '</div></div>';  // close previous tag-body & tag-section
+      lastGroup = ep.group;
+      html += '<div class="tag-section" id="tag-'+ep.tag+'">';
+      html += '<div class="tag-header" onclick="this.parentElement.classList.toggle(\'collapsed\')">';
+      html += '<div>'+esc(ep.group)+(ep.groupDesc ? '<span class="tag-desc"> — '+esc(ep.groupDesc)+'</span>' : '')+'</div>';
+      html += '<span class="chevron">▼</span>';
+      html += '</div>';
+      html += '<div class="tag-body">';
+    }
+
+    const method = ep.method;
+    const hasAuth = !!ep.auth;
+    const authLabel = hasAuth ? (ep.auth === 'Admin' ? 'admin' : 'bearer') : '';
+
+    html += '<div class="endpoint-row" data-id="'+ep.id+'">';
+    html += '<div class="method-cell '+method+'">'+method+'</div>';
+    html += '<div class="path-cell">';
+    html += '<span class="path-text">'+esc(ep.path)+'</span>';
+    if(hasAuth) html += '<span class="lock-icon '+authLabel+'">&#128274; '+esc(ep.auth)+'</span>';
+    html += '<span class="summary-text">'+esc(ep.summary)+'</span>';
+    html += '</div></div>';
+
+    html += '<div class="endpoint-detail"><div class="detail-inner">';
+
+    if(ep.summary) html += '<div class="detail-desc">'+esc(ep.summary)+'</div>';
+
+    const params = ep.params || [];
+    if(params.length > 0){
+      html += '<div class="detail-section">';
+      html += '<div class="detail-section-title">Parameters</div>';
+      html += '<table class="params-table"><thead><tr><th>Name</th><th>In</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>';
+      params.forEach(p=>{
+        html += '<tr>';
+        html += '<td>'+esc(p.name)+'</td>';
+        html += '<td><span class="param-in">'+esc(p.in||'query')+'</span></td>';
+        html += '<td><span class="param-type">'+esc(p.type)+'</span></td>';
+        html += '<td>'+(p.required ? '<span class="param-required">required</span>' : '<span style="color:#a0aec0">false</span>')+'</td>';
+        html += '<td class="param-desc">'+esc(p.description)+'</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+
+    const bodyParams = ep.bodyParams || [];
+    if(bodyParams.length > 0){
+      html += '<div class="detail-section">';
+      html += '<div class="detail-section-title">Request Body <span style="text-transform:none;font-weight:400;font-size:11px;color:#805ad5;">application/json</span></div>';
+      html += '<table class="params-table"><thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody>';
+      bodyParams.forEach(p=>{
+        html += '<tr>';
+        html += '<td>'+esc(p.name)+'</td>';
+        html += '<td><span class="param-type">'+esc(p.type)+'</span></td>';
+        html += '<td>'+(p.required ? '<span class="param-required">required</span>' : '<span style="color:#a0aec0">false</span>')+'</td>';
+        html += '<td class="param-desc">'+esc(p.description)+'</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+      if(ep.bodyExample){
+        html += '<div class="body-example">'+syntaxJson(ep.bodyExample)+'</div>';
+      }
+      html += '</div>';
+    } else if(ep.bodyExample){
+      html += '<div class="detail-section">';
+      html += '<div class="detail-section-title">Request Body <span style="text-transform:none;font-weight:400;font-size:11px;color:#805ad5;">application/json</span></div>';
+      html += '<div class="body-example">'+syntaxJson(ep.bodyExample)+'</div>';
+      html += '</div>';
+    }
+
+    if(ep.responses && ep.responses.length){
+      html += '<div class="detail-section">';
+      html += '<div class="detail-section-title">Responses</div>';
+      ep.responses.forEach(r=>{
+        const cls = String(r.status).startsWith('2') ? 's2xx'
+          : String(r.status).startsWith('3') ? 's3xx'
+          : String(r.status).startsWith('4') ? 's4xx' : 's5xx';
+        html += '<div class="response-item">';
+        html += '<span class="response-status '+cls+'">'+r.status+'</span>';
+        html += '<div style="flex:1">';
+        html += '<span class="response-desc">'+esc(r.description)+'</span>';
+        if(r.example !== undefined){
+          html += '<div class="response-example">'+syntaxJson(r.example)+'</div>';
+        }
+        html += '</div></div>';
+      });
+      html += '</div>';
+    }
+
+    html += '<div class="detail-section">';
+    html += '<div class="detail-section-title">Try it out</div>';
+    html += '<div class="try-section">';
+    html += '<div class="try-row">';
+    html += '<label>URL</label>';
+    html += '<input type="text" data-role="url" value="'+esc(ep.path)+'" />';
+    html += '<button class="btn-execute" data-role="exec">Execute</button>';
+    html += '<button class="btn-clear-response" data-role="clear-res" style="display:none">Clear</button>';
+    html += '</div>';
+    if(params.some(p=>!p.in || p.in==='query')){
+      html += '<div class="try-row"><label>Query</label><input type="text" data-role="qs" placeholder="e.g. q=organic&category=Produce" /></div>';
+    }
+    if(ep.bodyExample){
+      html += '<div class="try-row"><label>Body</label><textarea data-role="body">'+esc(JSON.stringify(ep.bodyExample,null,2))+'</textarea></div>';
+    }
+    html += '<div class="response-panel" data-role="response">';
+    html += '<div class="response-header" data-role="res-header"></div>';
+    html += '<div class="response-body" data-role="res-body"></div>';
+    html += '</div>';
+    html += '</div></div>';
+
+    html += '</div></div>'; 
+  });
+
+  if(lastGroup) html += '</div></div>'; 
+  $('#endpoints').innerHTML = html;
+
+  $$('.endpoint-row').forEach(row=>{
+    row.addEventListener('click', ()=>{
+      const wasOpen = row.classList.contains('open');
+      
+      const section = row.closest('.tag-body');
+      $$('.endpoint-row.open', section).forEach(r=> r.classList.remove('open'));
+      if(!wasOpen) row.classList.add('open');
+    });
+  });
+
+  $('#endpoints').addEventListener('click', async e=>{
+    const execBtn = e.target.closest('[data-role="exec"]');
+    const clearBtn = e.target.closest('[data-role="clear-res"]');
+
+    if(clearBtn){
+      const panel = clearBtn.closest('.try-section').querySelector('[data-role="response"]');
+      panel.style.display = 'none';
+      clearBtn.style.display = 'none';
+      return;
+    }
+    if(!execBtn) return;
+
+    const section = execBtn.closest('.try-section');
+    const panel = section.querySelector('[data-role="response"]');
+    const header = section.querySelector('[data-role="res-header"]');
+    const body = section.querySelector('[data-role="res-body"]');
+    const urlInput = section.querySelector('[data-role="url"]');
+    const qsInput = section.querySelector('[data-role="qs"]');
+    const bodyTa = section.querySelector('[data-role="body"]');
+    const clearResBtn = section.querySelector('[data-role="clear-res"]');
+
+    let url = urlInput.value.trim();
+    if(qsInput && qsInput.value.trim()){
+      const qs = qsInput.value.trim().replace(/^\?/,'');
+      url += (url.includes('?') ? '&' : '?') + qs;
+    }
+
+    const opts = { method: execBtn.closest('.endpoint-detail').previousElementSibling.querySelector('.method-cell').textContent, headers: {} };
+    if(token) opts.headers['Authorization'] = 'Bearer '+token;
+    if(bodyTa){
+      opts.headers['Content-Type'] = 'application/json';
+      opts.body = bodyTa.value;
+    }
+
+    execBtn.disabled = true;
+    execBtn.textContent = 'Sending...';
+    panel.style.display = 'block';
+    clearResBtn.style.display = 'inline-block';
+    header.textContent = 'Loading...';
+    header.className = 'response-header';
+    body.textContent = '';
+
+    try {
+      const fullUrl = baseUrl + url;
+      const res = await fetch(fullUrl, opts);
+      const text = await res.text();
+      let pretty = text;
+      try { pretty = JSON.stringify(JSON.parse(text), null, 2); } catch(e){}
+      header.textContent = res.status + ' ' + res.statusText + '   ' + opts.method + ' ' + fullUrl;
+      header.className = 'response-header ' + (res.ok ? 'ok' : 'err');
+      body.textContent = pretty || '(empty response)';
+    } catch(err){
+      header.textContent = 'Network Error';
+      header.className = 'response-header err';
+      body.textContent = String(err);
+    }
+    execBtn.disabled = false;
+    execBtn.textContent = 'Execute';
+  });
+
+  const sidebarLinks = $$('#sidebar a');
+  function highlightSidebar(){
+    let current = '';
+    $$('.tag-section').forEach(s=>{
+      const rect = s.getBoundingClientRect();
+      if(rect.top <= 120) current = s.id.replace('tag-','');
+    });
+    sidebarLinks.forEach(a=>{
+      a.classList.toggle('active', a.dataset.tag === current);
+    });
+  }
+  window.addEventListener('scroll', highlightSidebar, {passive:true});
+
+  sidebarLinks.forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      const target = document.getElementById(a.getAttribute('href').slice(1));
+      if(target){
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        target.classList.remove('collapsed');
+      }
+    });
+  });
+
+  paintAuth();
+})();
+</script>
+</body>
+</html>

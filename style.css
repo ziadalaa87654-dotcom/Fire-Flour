@@ -60,7 +60,9 @@ select {
 }
 
 .nav-wrap {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   min-height: 52px;
   position: relative;
 }
@@ -81,22 +83,22 @@ select {
 }
 
 .nav {
-  position: absolute;
-  right: 0;
-  top: 0;
+  position: static;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 24px;
 }
 
 .nav a {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.03em;
+  color: inherit;
 }
 
 .nav a:not(.nav-cta) {
   opacity: 0.82;
+  text-decoration: none;
 }
 
 .nav a.active,
@@ -106,8 +108,10 @@ select {
 
 .nav-cta {
   background: var(--red);
-  color: #fff;
-  padding: 13px 20px;
+  color: #fff !important;
+  padding: 10px 20px;
+  border-radius: 4px;
+  opacity: 1 !important;
 }
 
 .nav-toggle {
@@ -695,37 +699,48 @@ select:focus {
   opacity: 1 !important;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 991px) {
   .container {
     width: min(calc(100% - 36px), var(--max));
   }
   .nav-toggle {
     display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
+    position: static;
   }
   .nav {
     display: none;
     position: absolute;
-    top: 52px;
+    top: 100%;
+    left: 0;
     right: 0;
     background: var(--paper);
     color: var(--ink);
-    width: 240px;
+    width: 100%;
     padding: 20px;
     box-shadow: 0 10px 30px #0002;
+    border-radius: 8px;
+    margin-top: 10px;
+    z-index: 1000;
   }
   .site-header:not(.solid) .nav {
-    background: var(--ink);
+    background: #171714;
     color: #fff;
   }
   .nav.open {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .nav a {
     display: block;
-    padding: 12px;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(128,128,128,0.15);
+  }
+  .nav a.nav-cta {
+    text-align: center;
+    border-bottom: none;
+    margin-top: 8px;
   }
   .hero {
     min-height: 700px;
@@ -825,11 +840,9 @@ select:focus {
   }
 }
 
-/* ==========================================================================
-   Interactive JS Components & Animation Enhancements
-   ========================================================================== */
 
-/* Header Scroll Transition */
+
+
 .site-header {
   transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
 }
@@ -847,7 +860,7 @@ select:focus {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Nav Backdrop for Mobile */
+
 .nav-backdrop {
   position: fixed;
   inset: 0;
@@ -863,7 +876,7 @@ select:focus {
   visibility: visible;
 }
 
-/* Hero Scroll Button Interactivity */
+
 .hero-scroll {
   cursor: pointer;
   user-select: none;
@@ -875,7 +888,7 @@ select:focus {
   opacity: 0.85;
 }
 
-/* Menu Filter Bar & Search Box */
+
 .filters-bar {
   display: flex;
   flex-wrap: wrap;
@@ -932,7 +945,7 @@ select:focus {
   display: block;
 }
 
-/* Menu Filter Counter Badge */
+
 .filter-badge {
   font-size: 11px;
   background: var(--line);
@@ -955,7 +968,7 @@ select:focus {
   font-size: 16px;
 }
 
-/* Reveal-on-Scroll Animations */
+
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -967,7 +980,7 @@ select:focus {
   transform: translateY(0);
 }
 
-/* Back to Top Button */
+
 #backToTop {
   position: fixed;
   bottom: 30px;
@@ -1002,7 +1015,7 @@ select:focus {
   transform: scale(1.1);
 }
 
-/* Modal Popup System */
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -1079,7 +1092,7 @@ select:focus {
   font-size: 13px;
 }
 
-/* Toast Notifications */
+
 .toast-container {
   position: fixed;
   bottom: 24px;
@@ -1118,7 +1131,7 @@ select:focus {
   border-left-color: #2e7d32;
 }
 
-/* Dish Modal & Interactive Component Enhancements */
+
 .dish-modal-header {
   display: flex;
   justify-content: space-between;
@@ -1142,7 +1155,7 @@ select:focus {
   color: var(--ink);
 }
 
-/* Form Invalid Validation Highlight */
+
 input.invalid,
 select.invalid,
 textarea.invalid {

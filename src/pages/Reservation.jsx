@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
+import reservationService from '../services/reservationService';
 
 export default function Reservation() {
   const { showToast, showModal } = useApp();
@@ -19,6 +20,7 @@ export default function Reservation() {
   });
 
   const [invalidFields, setInvalidFields] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +30,7 @@ export default function Reservation() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const errors = {};
@@ -52,56 +54,67 @@ export default function Reservation() {
       return;
     }
 
-    const dateParts = formData.date.split('-');
-    const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-    const formattedDate = dateObj.toLocaleDateString('en-US', {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    setSubmitting(true);
 
-    const summaryContent = (
-      <div>
-        <p>
-          Thank you, <strong>{formData.name}</strong>! Your reservation request has been received.
-        </p>
-        <div className="modal-details">
+    try {
+      
+      await reservationService.createReservation(formData);
+
+      const dateParts = formData.date.split('-');
+      const dateObj = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+      const formattedDate = dateObj.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+
+      const summaryContent = (
+        <div>
           <p>
-            <strong>Date:</strong> {formattedDate}
+            Thank you, <strong>{formData.name}</strong>! Your table reservation request has been sent to our management team.
           </p>
-          <p>
-            <strong>Time:</strong> {formData.time}
-          </p>
-          <p>
-            <strong>Party Size:</strong> {formData.guests}
-          </p>
-          <p>
-            <strong>Confirmation Sent To:</strong> {formData.email}
-          </p>
-          {formData.notes && (
+          <div className="modal-details">
             <p>
-              <strong>Special Notes:</strong> {formData.notes}
+              <strong>Date:</strong> {formattedDate}
             </p>
-          )}
+            <p>
+              <strong>Time:</strong> {formData.time}
+            </p>
+            <p>
+              <strong>Party Size:</strong> {formData.guests}
+            </p>
+            <p>
+              <strong>Confirmation Email:</strong> {formData.email}
+            </p>
+            {formData.notes && (
+              <p>
+                <strong>Special Notes:</strong> {formData.notes}
+              </p>
+            )}
+          </div>
+          <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: 0 }}>
+            Our team will confirm your table shortly.
+          </p>
         </div>
-        <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: 0 }}>
-          We will email you shortly if any adjustments are needed.
-        </p>
-      </div>
-    );
+      );
 
-    showModal('Table Reserved!', summaryContent);
-    showToast('Reservation request sent!', 'success');
+      showModal('Table Reserved!', summaryContent);
+      showToast('Reservation request sent!', 'success');
 
-    setFormData({
-      date: '',
-      time: '',
-      guests: '',
-      name: '',
-      email: '',
-      notes: '',
-    });
+      setFormData({
+        date: '',
+        time: '',
+        guests: '',
+        name: '',
+        email: '',
+        notes: '',
+      });
+    } catch (err) {
+      showToast('Failed to send reservation request.', 'error');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -223,8 +236,8 @@ export default function Reservation() {
               ></textarea>
             </label>
 
-            <button className="btn btn-dark" type="submit">
-              Request reservation ↗
+            <button className="btn btn-dark" type="submit" disabled={submitting}>
+              {submitting ? 'Submitting...' : 'Request reservation ↗'}
             </button>
           </form>
         </div>

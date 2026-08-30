@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useCart } from '../context/CartContext';
 
 export default function Home() {
-  const { showModal } = useApp();
+  const { showModal, showToast } = useApp();
+  const { addToCart } = useCart();
   const introRef = useRef(null);
 
   const handleHeroScroll = () => {
@@ -15,24 +17,33 @@ export default function Home() {
   const handleDishClick = (dish) => {
     const content = (
       <div className="dish-modal-content">
-        <div className="dish-modal-header">
-          <span className="dish-modal-badge">{dish.category.toUpperCase()}</span>
-          <span className="dish-modal-price">{dish.price}</span>
+        <div className="dish-modal-header d-flex justify-content-between align-items-center">
+          <span className="dish-modal-badge badge bg-danger">{dish.category.toUpperCase()}</span>
+          <span className="dish-modal-price text-danger fw-bold fs-5">{dish.price}</span>
         </div>
         <p className="lead" style={{ fontSize: '16px', margin: '16px 0' }}>
           {dish.description}
         </p>
-        <div className="modal-details">
-          <p>
+        <div className="modal-details text-muted small">
+          <p className="mb-1">
             <strong>Ingredients & Preparation:</strong> {dish.details}
           </p>
-          <p>
-            <strong>Dietary Info:</strong> Vegetarian options & gluten-free crust available upon request.
+          <p className="mb-0">
+            <strong>Dietary Info:</strong> Vegetarian options & gluten-free crust available.
           </p>
         </div>
-        <div style={{ marginTop: '24px', textAlign: 'right' }}>
-          <Link to="/reservation" className="btn btn-primary" onClick={() => document.body.style.overflow = ''}>
-            Reserve a table to try this ↗
+        <div className="d-flex justify-content-between align-items-center mt-4">
+          <button 
+            className="btn btn-danger fw-bold px-4"
+            onClick={() => {
+              addToCart({ id: dish.id, name: dish.name, price: dish.price, category: dish.category, desc: dish.description }, 1);
+              showToast(`Added "${dish.name}" to cart! 🛒`, 'success');
+            }}
+          >
+            🛒 Add to Cart • {dish.price}
+          </button>
+          <Link to="/reservation" className="btn btn-outline-dark btn-sm" onClick={() => document.body.style.overflow = ''}>
+            Book a Table ↗
           </Link>
         </div>
       </div>
@@ -43,7 +54,7 @@ export default function Home() {
 
   const featuredDishes = [
     {
-      id: 'margherita',
+      id: 'p01',
       name: 'Fire Margherita',
       price: '€14',
       category: 'Pizza',
@@ -53,7 +64,7 @@ export default function Home() {
       isLarge: true,
     },
     {
-      id: 'truffle-pasta',
+      id: 'p05',
       name: 'Truffle Pasta',
       price: '€19',
       category: 'Pasta',
@@ -63,7 +74,7 @@ export default function Home() {
       isLarge: false,
     },
     {
-      id: 'italian-garden',
+      id: 'p07',
       name: 'Italian Garden',
       price: '€12',
       category: 'Salad',
@@ -141,12 +152,25 @@ export default function Home() {
                 onClick={() => handleDishClick(dish)}
               >
                 <div className={`food-image ${dish.imageClass}`}></div>
-                <div className="food-info">
+                <div className="food-info d-flex justify-content-between align-items-center">
                   <div>
                     <h3>{dish.name}</h3>
                     <p>{dish.description}</p>
                   </div>
-                  <strong>{dish.price}</strong>
+                  <div className="d-flex align-items-center gap-2">
+                    <strong>{dish.price}</strong>
+                    <button
+                      className="btn btn-outline-danger btn-sm rounded-circle p-2"
+                      title="Add to Cart"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart({ id: dish.id, name: dish.name, price: dish.price, category: dish.category, desc: dish.description }, 1);
+                        showToast(`Added "${dish.name}" to cart! 🛒`, 'success');
+                      }}
+                    >
+                      🛒
+                    </button>
+                  </div>
                 </div>
               </article>
             ))}
